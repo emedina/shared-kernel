@@ -1,47 +1,193 @@
 package com.emedina.sharedkernel.specifications.operators;
 
-import com.emedina.sharedkernel.specifications.CompositeSpecification;
-import com.emedina.sharedkernel.specifications.FluentSpecification;
-import com.emedina.sharedkernel.specifications.Specification;
-import org.junit.jupiter.api.Test;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-// Test all the methods of the AndSpecification class
-public class AndSpecificationTests {
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-    // Test the constructor
+import com.emedina.sharedkernel.specifications.CompositeSpecification;
+import com.emedina.sharedkernel.specifications.FluentSpecification;
+import com.emedina.sharedkernel.specifications.Specification;
+
+/**
+ * Comprehensive unit tests for {@link AndSpecification} class.
+ * 
+ * @author Enrique Medina Montenegro
+ */
+@DisplayName("AndSpecification")
+class AndSpecificationTests {
+
     @Test
-    public void testConstructor() {
-        // Test the constructor
-        // Create a new AndSpecification object
-        AndSpecification<Object> andSpecification = new AndSpecification<Object>(null, null);
+    @DisplayName("should create instance with valid specifications")
+    void shouldCreateInstanceWithValidSpecifications() {
+        // Given
+        Specification<String> leftSpec = candidate -> true;
+        Specification<String> rightSpec = candidate -> false;
 
-        // Check that the object is not null
+        // When
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // Then
         assertNotNull(andSpecification);
-        // Check that the object is an instance of AndSpecification
         assertInstanceOf(AndSpecification.class, andSpecification);
-        // Check that the object is an instance of CompositeSpecification
         assertInstanceOf(CompositeSpecification.class, andSpecification);
-        // Check that the object is an instance of Specification
         assertInstanceOf(Specification.class, andSpecification);
-        // Check that the object is an instance of FluentSpecification
         assertInstanceOf(FluentSpecification.class, andSpecification);
     }
 
-    // Test the isSatisfiedBy method
     @Test
-    public void testIsSatisfiedBy() {
-        // Test the isSatisfiedBy method
-        // Create a new AndSpecification object
-        AndSpecification<Object> andSpecification = new AndSpecification<>(candidate -> true, candidate -> true);
+    @DisplayName("should handle null specifications in constructor")
+    void shouldHandleNullSpecificationsInConstructor() {
+        // Given & When
+        AndSpecification<String> andSpecification = new AndSpecification<>(null, null);
 
-        // Check that the object is not null
+        // Then
         assertNotNull(andSpecification);
-
-        // Check that the isSatisfiedBy method returns true
-        assert(andSpecification.isSatisfiedBy(null));
     }
 
+    @ParameterizedTest
+    @DisplayName("should evaluate AND logic correctly")
+    @CsvSource({
+        "true, true, true",
+        "true, false, false",
+        "false, true, false",
+        "false, false, false"
+    })
+    void shouldEvaluateAndLogicCorrectly(boolean leftResult, boolean rightResult, boolean expectedResult) {
+        // Given
+        Specification<String> leftSpec = candidate -> leftResult;
+        Specification<String> rightSpec = candidate -> rightResult;
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When
+        boolean result = andSpecification.isSatisfiedBy("test");
+
+        // Then
+        assertThat(result).isEqualTo(expectedResult);
+    }
+
+    @Test
+    @DisplayName("should handle null candidate")
+    void shouldHandleNullCandidate() {
+        // Given
+        Specification<String> leftSpec = candidate -> candidate != null;
+        Specification<String> rightSpec = candidate -> true;
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When
+        boolean result = andSpecification.isSatisfiedBy(null);
+
+        // Then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("should short-circuit when left specification is false")
+    void shouldShortCircuitWhenLeftSpecificationIsFalse() {
+        // Given
+        Specification<String> leftSpec = candidate -> false;
+        Specification<String> rightSpec = candidate -> {
+            throw new RuntimeException("Should not be called");
+        };
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When
+        boolean result = andSpecification.isSatisfiedBy("test");
+
+        // Then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("should evaluate right specification when left is true")
+    void shouldEvaluateRightSpecificationWhenLeftIsTrue() {
+        // Given
+        boolean[] rightCalled = { false };
+        Specification<String> leftSpec = candidate -> true;
+        Specification<String> rightSpec = candidate -> {
+            rightCalled[0] = true;
+            return true;
+        };
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When
+        boolean result = andSpecification.isSatisfiedBy("test");
+
+        // Then
+        assertThat(result).isTrue();
+        assertThat(rightCalled[0]).isTrue();
+    }
+
+    @Test
+    @DisplayName("should work with complex specifications")
+    void shouldWorkWithComplexSpecifications() {
+        // Given
+        Specification<String> lengthSpec = candidate -> candidate != null && candidate.length() > 3;
+        Specification<String> startsWithSpec = candidate -> candidate != null && candidate.startsWith("test");
+        AndSpecification<String> andSpecification = new AndSpecification<>(lengthSpec, startsWithSpec);
+
+        // When & Then
+        assertThat(andSpecification.isSatisfiedBy("testing")).isTrue(); // length > 3 AND starts with "test"
+        assertThat(andSpecification.isSatisfiedBy("test")).isTrue(); // length = 4 > 3 AND starts with "test" = true
+        assertThat(andSpecification.isSatisfiedBy("hello")).isFalse(); // length > 3 but doesn't start with "test"
+        assertThat(andSpecification.isSatisfiedBy("hi")).isFalse(); // both conditions fail
+        assertThat(andSpecification.isSatisfiedBy(null)).isFalse();
+    }
+
+    @Test
+    @DisplayName("should support fluent interface operations")
+    void shouldSupportFluentInterfaceOperations() {
+        // Given
+        Specification<String> leftSpec = candidate -> true;
+        Specification<String> rightSpec = candidate -> true;
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+        Specification<String> anotherSpec = candidate -> false;
+
+        // When & Then
+        assertThat(andSpecification.and(anotherSpec)).isInstanceOf(AndSpecification.class);
+        assertThat(andSpecification.or(anotherSpec)).isInstanceOf(OrSpecification.class);
+        assertThat(andSpecification.not()).isInstanceOf(NotSpecification.class);
+    }
+
+    @Test
+    @DisplayName("should handle exception in left specification")
+    void shouldHandleExceptionInLeftSpecification() {
+        // Given
+        Specification<String> leftSpec = candidate -> {
+            throw new RuntimeException("Left spec error");
+        };
+        Specification<String> rightSpec = candidate -> true;
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When & Then
+        try {
+            andSpecification.isSatisfiedBy("test");
+            assertThat(false).as("Expected RuntimeException to be thrown").isTrue();
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage()).isEqualTo("Left spec error");
+        }
+    }
+
+    @Test
+    @DisplayName("should handle exception in right specification")
+    void shouldHandleExceptionInRightSpecification() {
+        // Given
+        Specification<String> leftSpec = candidate -> true;
+        Specification<String> rightSpec = candidate -> {
+            throw new RuntimeException("Right spec error");
+        };
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When & Then
+        try {
+            andSpecification.isSatisfiedBy("test");
+            assertThat(false).as("Expected RuntimeException to be thrown").isTrue();
+        } catch (RuntimeException e) {
+            assertThat(e.getMessage()).isEqualTo("Right spec error");
+        }
+    }
 }
