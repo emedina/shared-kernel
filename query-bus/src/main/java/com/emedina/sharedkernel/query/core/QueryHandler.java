@@ -18,6 +18,6 @@ public interface QueryHandler<R, Q extends Query> {
      * @param query query to handle
      * @return an optional return value as specified in {@link Query}
      */
-    <R> R handle(final Q query);
+    R handle(final Q query);
 
 }
