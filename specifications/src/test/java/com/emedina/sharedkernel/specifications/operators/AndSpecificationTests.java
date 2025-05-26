@@ -25,8 +25,8 @@ class AndSpecificationTests {
     @DisplayName("should create instance with valid specifications")
     void shouldCreateInstanceWithValidSpecifications() {
         // Given
-        Specification<String> leftSpec = candidate -> true;
-        Specification<String> rightSpec = candidate -> false;
+        Specification<String> leftSpec = _ -> true;
+        Specification<String> rightSpec = _ -> false;
 
         // When
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
@@ -59,8 +59,8 @@ class AndSpecificationTests {
     })
     void shouldEvaluateAndLogicCorrectly(boolean leftResult, boolean rightResult, boolean expectedResult) {
         // Given
-        Specification<String> leftSpec = candidate -> leftResult;
-        Specification<String> rightSpec = candidate -> rightResult;
+        Specification<String> leftSpec = _ -> leftResult;
+        Specification<String> rightSpec = _ -> rightResult;
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
 
         // When
@@ -75,7 +75,7 @@ class AndSpecificationTests {
     void shouldHandleNullCandidate() {
         // Given
         Specification<String> leftSpec = candidate -> candidate != null;
-        Specification<String> rightSpec = candidate -> true;
+        Specification<String> rightSpec = _ -> true;
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
 
         // When
@@ -89,8 +89,8 @@ class AndSpecificationTests {
     @DisplayName("should short-circuit when left specification is false")
     void shouldShortCircuitWhenLeftSpecificationIsFalse() {
         // Given
-        Specification<String> leftSpec = candidate -> false;
-        Specification<String> rightSpec = candidate -> {
+        Specification<String> leftSpec = _ -> false;
+        Specification<String> rightSpec = _ -> {
             throw new RuntimeException("Should not be called");
         };
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
@@ -107,8 +107,8 @@ class AndSpecificationTests {
     void shouldEvaluateRightSpecificationWhenLeftIsTrue() {
         // Given
         boolean[] rightCalled = { false };
-        Specification<String> leftSpec = candidate -> true;
-        Specification<String> rightSpec = candidate -> {
+        Specification<String> leftSpec = _ -> true;
+        Specification<String> rightSpec = _ -> {
             rightCalled[0] = true;
             return true;
         };
@@ -142,10 +142,10 @@ class AndSpecificationTests {
     @DisplayName("should support fluent interface operations")
     void shouldSupportFluentInterfaceOperations() {
         // Given
-        Specification<String> leftSpec = candidate -> true;
-        Specification<String> rightSpec = candidate -> true;
+        Specification<String> leftSpec = _ -> true;
+        Specification<String> rightSpec = _ -> true;
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
-        Specification<String> anotherSpec = candidate -> false;
+        Specification<String> anotherSpec = _ -> false;
 
         // When & Then
         assertThat(andSpecification.and(anotherSpec)).isInstanceOf(AndSpecification.class);
@@ -157,10 +157,10 @@ class AndSpecificationTests {
     @DisplayName("should handle exception in left specification")
     void shouldHandleExceptionInLeftSpecification() {
         // Given
-        Specification<String> leftSpec = candidate -> {
+        Specification<String> leftSpec = _ -> {
             throw new RuntimeException("Left spec error");
         };
-        Specification<String> rightSpec = candidate -> true;
+        Specification<String> rightSpec = _ -> true;
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
 
         // When & Then
@@ -176,8 +176,8 @@ class AndSpecificationTests {
     @DisplayName("should handle exception in right specification")
     void shouldHandleExceptionInRightSpecification() {
         // Given
-        Specification<String> leftSpec = candidate -> true;
-        Specification<String> rightSpec = candidate -> {
+        Specification<String> leftSpec = _ -> true;
+        Specification<String> rightSpec = _ -> {
             throw new RuntimeException("Right spec error");
         };
         AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);

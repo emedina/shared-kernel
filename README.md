@@ -3,8 +3,6 @@
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Java Version](https://img.shields.io/badge/Java-24-blue)
 ![Test Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)
-![Java CI with Coverage](https://github.com/yourusername/hexagonal-architecture/workflows/Java%20CI%20with%20Coverage/badge.svg)
-![codecov](https://codecov.io/gh/yourusername/hexagonal-architecture/branch/main/graph/badge.svg)
 
 A comprehensive shared kernel library implementing Domain-Driven Design (DDD) patterns and hexagonal architecture principles for Java applications.
 
