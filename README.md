@@ -2,6 +2,33 @@
 
 A comprehensive shared kernel library implementing Domain-Driven Design (DDD) patterns and hexagonal architecture principles for Java applications.
 
+## 📚 Further Learning
+
+This implementation is part of a comprehensive exploration of Hexagonal Architecture patterns. The concepts are covered in depth in:
+
+**English Version**
+*Decoupling by Design: A Pragmatic Approach to Hexagonal Architecture*
+
+- [PDF](https://leanpub.com/decouplingbydesignapractitionersguidetohexagonalarchitecture)  
+- [Kindle](https://a.co/d/4KwauyK)  
+- [Paperback](https://a.co/d/cGQI8gX)  
+
+**Versión en Español**  
+*Desacoplamiento por Diseño: Una Guía Práctica para la Arquitectura Hexagonal*
+
+- [PDF](https://leanpub.com/desacoplamientopordiseounaguaprcticaparalaarquitecturahexagonal)  
+- [Kindle](https://amzn.eu/d/ic50CoH)  
+- [Tapa blanda](https://amzn.eu/d/1fHOpN6)  
+
+The book provides in-depth coverage of:
+
+- Shared kernel implementation strategies
+- Command and Query pattern variations
+- Domain modeling with value objects and entities
+- Specification pattern for business rules
+- Transaction management in hexagonal systems
+- Evolutionary architecture approaches
+
 ## 🚀 Recent Upgrades (v1.0.0)
 
 ### ✅ JDK 24 & Latest Dependencies
