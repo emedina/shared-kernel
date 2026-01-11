@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Enrique Medina Montenegro
  */
-public interface Entity<E extends AggregateRoot<E, ?>, ID extends Identifier> extends Identifiable<ID>, Serializable {
+public interface Entity<E extends AggregateRoot<E, ?>, ID extends Identifier<?>> extends Identifiable<ID>, Serializable {
 
     /**
      * Entities compare by identity, not by attributes.

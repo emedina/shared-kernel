@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.emedina.sharedkernel</groupId>
+        <artifactId>shared-kernel</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>shared-kernel-query-either-bus</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Shared Kernel - Query Either Bus</name>
+    <description>A query bus to decouple requesters from executors that uses Either</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.emedina.sharedkernel</groupId>
+            <artifactId>shared-kernel-query</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Vavr - provided scope to avoid version conflicts -->
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>${vavr.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging API - provided scope for consumer flexibility -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

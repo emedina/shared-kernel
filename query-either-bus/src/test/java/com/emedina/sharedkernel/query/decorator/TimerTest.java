@@ -1,4 +1,4 @@
-package com.emedina.sharedkernel.command.decorator;
+package com.emedina.sharedkernel.query.decorator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * Unit tests for {@link Timer} class.
- * 
+ *
  * @author Enrique Medina Montenegro
  */
 @DisplayName("Timer")
@@ -65,7 +65,7 @@ class TimerTest {
     @DisplayName("should format different time units correctly")
     @CsvSource({
         "1000000000, s",     // 1 second in nanoseconds
-        "1000000, ms",       // 1 millisecond in nanoseconds  
+        "1000000, ms",       // 1 millisecond in nanoseconds
         "1000, μs",          // 1 microsecond in nanoseconds
         "1, ns"              // 1 nanosecond
     })

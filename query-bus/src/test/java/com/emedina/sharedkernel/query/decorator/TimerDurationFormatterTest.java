@@ -1,4 +1,4 @@
-package com.emedina.sharedkernel.command.decorator;
+package com.emedina.sharedkernel.query.decorator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 /**
  * Unit tests for {@link Timer.DurationFormatter} class.
- * 
+ *
  * @author Enrique Medina Montenegro
  */
 @DisplayName("Timer.DurationFormatter")
@@ -197,5 +197,5 @@ class TimerDurationFormatterTest {
         assertThat(formatted).isNotEmpty();
         assertThat(formatted).startsWith("-");
     }
-    
+
 }

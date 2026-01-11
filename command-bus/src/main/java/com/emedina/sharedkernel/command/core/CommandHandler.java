@@ -15,7 +15,7 @@ public interface CommandHandler<C extends Command> {
      * Handles the command.
      *
      * @param command command to handle
-     * @return an optional return value as specified in {@link Command}
+     * @return success, or throws an exception if anything goes wrong
      */
     void handle(final C command);
 

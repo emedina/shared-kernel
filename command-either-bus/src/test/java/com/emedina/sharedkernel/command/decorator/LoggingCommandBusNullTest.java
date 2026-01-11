@@ -10,7 +10,7 @@ import com.emedina.sharedkernel.command.Command;
 
 /**
  * Unit tests for {@link LoggingCommandBus} class with null decorated bus.
- * 
+ *
  * @author Enrique Medina Montenegro
  */
 @DisplayName("LoggingCommandBus with null decorated bus")

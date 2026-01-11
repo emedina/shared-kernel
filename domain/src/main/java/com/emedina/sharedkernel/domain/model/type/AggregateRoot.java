@@ -14,5 +14,5 @@ import com.emedina.sharedkernel.domain.identity.type.Identifier;
  *
  * @author Enrique Medina Montenegro
  */
-public interface AggregateRoot<A extends AggregateRoot<A, ID>, ID extends Identifier> extends Entity<A, ID> {
+public interface AggregateRoot<A extends AggregateRoot<A, ID>, ID extends Identifier<?>> extends Entity<A, ID> {
 }

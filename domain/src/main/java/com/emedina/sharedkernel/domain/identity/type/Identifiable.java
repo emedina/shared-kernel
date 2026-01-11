@@ -5,12 +5,12 @@ package com.emedina.sharedkernel.domain.identity.type;
  *
  * @author Enrique Medina Montenegro
  */
-public interface Identifiable<ID extends Identifier> {
+public interface Identifiable<ID extends Identifier<?>> {
 
     /**
      * Returns the identifier.
      *
-     * @return
+     * @return identifier
      */
     ID id();
 

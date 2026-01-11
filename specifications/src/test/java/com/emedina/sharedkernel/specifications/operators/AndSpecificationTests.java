@@ -190,4 +190,37 @@ class AndSpecificationTests {
             assertThat(e.getMessage()).isEqualTo("Right spec error");
         }
     }
+
+    @Test
+    @DisplayName("should return left specification via getter")
+    void shouldReturnLeftSpecificationViaGetter() {
+        // Given
+        Specification<String> leftSpec = _ -> true;
+        Specification<String> rightSpec = _ -> false;
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When
+        Specification<String> retrievedLeftSpec = andSpecification.getLeftSpecification();
+
+        // Then
+        assertNotNull(retrievedLeftSpec);
+        assertThat(retrievedLeftSpec).isSameAs(leftSpec);
+    }
+
+    @Test
+    @DisplayName("should return right specification via getter")
+    void shouldReturnRightSpecificationViaGetter() {
+        // Given
+        Specification<String> leftSpec = _ -> true;
+        Specification<String> rightSpec = _ -> false;
+        AndSpecification<String> andSpecification = new AndSpecification<>(leftSpec, rightSpec);
+
+        // When
+        Specification<String> retrievedRightSpec = andSpecification.getRightSpecification();
+
+        // Then
+        assertNotNull(retrievedRightSpec);
+        assertThat(retrievedRightSpec).isSameAs(rightSpec);
+    }
+
 }

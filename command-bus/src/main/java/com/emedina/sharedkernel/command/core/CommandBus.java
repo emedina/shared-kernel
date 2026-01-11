@@ -6,7 +6,7 @@ import com.emedina.sharedkernel.command.Command;
  * A command bus is able to execute commands, by passing the command object to its appropriate handler, hence
  * decoupling the requester from the executor using best practices.
  *
- * @author Enrique Medina Montenegro (em54029)
+ * @author Enrique Medina Montenegro
  */
 public interface CommandBus {
 

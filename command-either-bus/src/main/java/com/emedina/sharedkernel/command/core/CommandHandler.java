@@ -1,7 +1,8 @@
 package com.emedina.sharedkernel.command.core;
 
-import io.vavr.control.Either;
 import com.emedina.sharedkernel.command.Command;
+
+import io.vavr.control.Either;
 
 /**
  * A handler for a {@link Command}. Notice that it does not return any value.
@@ -16,7 +17,7 @@ public interface CommandHandler<C extends Command> {
      * Handles the command.
      *
      * @param command command to handle
-     * @return an optional return value as specified in {@link Command}
+     * @return either success, or an error if anything goes wrong
      */
     Either<?, Void> handle(final C command);
 

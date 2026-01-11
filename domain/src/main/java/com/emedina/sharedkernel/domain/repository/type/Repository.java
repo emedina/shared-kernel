@@ -15,5 +15,5 @@ import com.emedina.sharedkernel.domain.model.type.AggregateRoot;
  * @author Enrique Medina Montenegro
  * @see AggregateRoot
  */
-public interface Repository<R extends AggregateRoot<R, ID>, ID extends Identifier> {
+public interface Repository<R extends AggregateRoot<R, ID>, ID extends Identifier<?>> {
 }

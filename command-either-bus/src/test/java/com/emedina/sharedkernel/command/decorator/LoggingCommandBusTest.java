@@ -13,9 +13,11 @@ import org.junit.jupiter.api.Test;
 import com.emedina.sharedkernel.command.Command;
 import com.emedina.sharedkernel.command.core.CommandBus;
 
+import io.vavr.control.Either;
+
 /**
  * Unit tests for {@link LoggingCommandBus} class.
- * 
+ *
  * @author Enrique Medina Montenegro
  */
 @DisplayName("LoggingCommandBus")
@@ -46,11 +48,23 @@ class LoggingCommandBusTest {
     @DisplayName("should delegate command execution to decorated bus")
     void shouldDelegateCommandExecutionToDecoratedBus() {
         // Given & When
-        loggingCommandBus.execute(testCommand);
+        Either<?, Void> result = loggingCommandBus.execute(testCommand);
 
         // Then
         assertThat(decoratedCommandBus.wasExecuted()).isTrue();
         assertThat(decoratedCommandBus.getExecutedCommand()).isSameAs(testCommand);
+        assertThat(result.isRight()).isTrue();
+    }
+
+    @Test
+    @DisplayName("should return Either.right(null) on successful execution")
+    void shouldReturnEitherRightOnSuccessfulExecution() {
+        // Given & When
+        Either<?, Void> result = loggingCommandBus.execute(testCommand);
+
+        // Then
+        assertThat(result.isRight()).isTrue();
+        assertThat(result.get()).isNull();
     }
 
     @Test
@@ -72,11 +86,12 @@ class LoggingCommandBusTest {
         TestCommand command = new TestCommand();
 
         // When
-        loggingCommandBus.execute(command);
+        Either<?, Void> result = loggingCommandBus.execute(command);
 
         // Then
         assertThat(decoratedCommandBus.wasExecuted()).isTrue();
         assertThat(decoratedCommandBus.getExecutedCommand()).isSameAs(command);
+        assertThat(result.isRight()).isTrue();
     }
 
     @Test
@@ -109,6 +124,19 @@ class LoggingCommandBusTest {
         assertThat(anotherBus.wasExecuted()).isTrue();
     }
 
+    @Test
+    @DisplayName("should execute command even when decorated bus throws in finally block")
+    void shouldExecuteCommandEvenWhenDecoratedBusThrowsInFinallyBlock() {
+        // Given
+        RuntimeException expectedException = new RuntimeException("Test exception");
+        decoratedCommandBus.setExceptionToThrow(expectedException);
+
+        // When & Then
+        assertThatThrownBy(() -> loggingCommandBus.execute(testCommand))
+            .isSameAs(expectedException);
+        assertThat(decoratedCommandBus.wasExecuted()).isTrue();
+    }
+
     // Test command implementations
     private static class TestCommand implements Command {
         // Empty implementation for testing
@@ -127,7 +155,7 @@ class LoggingCommandBusTest {
         private int executionCount = 0;
 
         @Override
-        public <C extends Command> void execute(C command) {
+        public <C extends Command> Either<?, Void> execute(C command) {
             executionCount++;
             executed.set(true);
             executedCommand.set(command);
@@ -136,6 +164,8 @@ class LoggingCommandBusTest {
             if (exception != null) {
                 throw exception;
             }
+
+            return Either.right(null);
         }
 
         public boolean wasExecuted() {
