@@ -155,7 +155,7 @@ class LoggingCommandBusTest {
         private int executionCount = 0;
 
         @Override
-        public <C extends Command> Either<?, Void> execute(C command) {
+        public <E, C extends Command> Either<E, Void> execute(C command) {
             executionCount++;
             executed.set(true);
             executedCommand.set(command);

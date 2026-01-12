@@ -27,17 +27,15 @@ public class LoggingCommandBus implements CommandBus {
     }
 
     @Override
-    public <C extends Command> Either<?, Void> execute(final C command) {
+    public <E, C extends Command> Either<E, Void> execute(final C command) {
         LOG.info("started execution of command {}", command.getClass().getSimpleName());
 
         Timer timer = new Timer();
         try {
-            this.decorated.execute(command);
+            return this.decorated.execute(command);
         } finally {
             LOG.info("finished execution of command {} in {}", command.getClass().getSimpleName(), timer);
         }
-
-        return Either.right(null);
     }
 
 }

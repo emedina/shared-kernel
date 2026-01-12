@@ -15,10 +15,11 @@ public interface QueryBus {
      * Looks up the handler and passes the query to it.
      *
      * @param query query object
+     * @param <E>   type of error
      * @param <R>   type of return value
      * @param <Q>   type of query
      * @return either success with result, or an error if anything goes wrong
      */
-    <R, Q extends Query> Either<?, R> query(final Q query);
+    <E, R, Q extends Query> Either<E, R> query(final Q query);
 
 }

@@ -27,7 +27,7 @@ public class LoggingQueryBus implements QueryBus {
     }
 
     @Override
-    public <R, Q extends Query> Either<?, R> query(final Q query) {
+    public <E, R, Q extends Query> Either<E, R> query(final Q query) {
         LOG.info("started execution of query {}", query.getClass().getSimpleName());
 
         Timer timer = new Timer();

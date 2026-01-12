@@ -163,7 +163,7 @@ class LoggingQueryBusTest {
         private int executionCount = 0;
 
         @Override
-        public <R, Q extends Query> Either<?, R> query(Q query) {
+        public <E, R, Q extends Query> Either<E, R> query(Q query) {
             executionCount++;
             executed.set(true);
             executedQuery.set(query);

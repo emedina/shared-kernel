@@ -78,13 +78,15 @@ CQRS command handling with decorator support:
 - **Logging Decorator**: Execution timing and logging
 - **Extensible**: Easy to add custom decorators
 
-### Query Pattern (`query`, `query-bus`)
+### Query Pattern (`query`, `query-bus`, `query-either-bus`)
 
-CQRS query handling:
+CQRS query handling with decorator support:
 
 - **Query Interface**: Base query contract  
 - **Query Bus**: Decoupled query execution
-- **Decorator Support**: Logging, caching, metrics
+- **Either Bus**: Functional error handling with Vavr
+- **Logging Decorator**: Execution timing and logging
+- **Extensible**: Easy to add custom decorators
 
 ### Specifications (`specifications`)
 
@@ -120,7 +122,7 @@ Technology-agnostic transaction boundaries:
 When using modules with provided dependencies, add these to your project:
 
 ```xml
-<!-- For command-bus, query-bus, command-either-bus -->
+<!-- For command-bus, query-bus, command-either-bus, query-either-bus -->
 <dependency>
     <groupId>org.slf4j</groupId>
     <artifactId>slf4j-api</artifactId>

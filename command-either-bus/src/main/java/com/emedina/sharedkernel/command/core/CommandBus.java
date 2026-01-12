@@ -15,8 +15,10 @@ public interface CommandBus {
      * Looks up the handler and passes the command to it.
      *
      * @param command command object
+     * @param <E>     type of error
      * @param <C>     type of command
+     * @return either success, or an error if anything goes wrong
      */
-    <C extends Command> Either<?, Void> execute(final C command);
+    <E, C extends Command> Either<E, Void> execute(final C command);
 
 }
