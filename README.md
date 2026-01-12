@@ -1,7 +1,7 @@
 # Shared Kernel for Hexagonal Architecture
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Java Version](https://img.shields.io/badge/Java-24-blue)
+![Java Version](https://img.shields.io/badge/Java-25-blue)
 ![Test Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)
 
 A comprehensive shared kernel library implementing Domain-Driven Design (DDD) patterns and hexagonal architecture principles for Java applications.
@@ -37,12 +37,12 @@ The book provides in-depth coverage of:
 
 ### ✅ JDK 24 & Latest Dependencies
 
-- **Java**: Upgraded from JDK 21 → **JDK 24** (GA release March 2025)
-- **Maven Compiler Plugin**: 3.12.1 → **3.13.0**
-- **Versions Maven Plugin**: 2.17.1 → **2.18.0**
-- **JUnit Jupiter**: RELEASE → **5.11.3** (fixed anti-pattern)
-- **SLF4J API**: **2.0.16** (latest GA)
-- **Vavr**: **0.10.4** (latest stable)
+- **Java**: Upgraded from JDK 21 → **JDK 25** (GA release)
+- **Maven Compiler Plugin**: 3.12.1 → **3.14.1**
+- **Versions Maven Plugin**: 2.17.1 → **2.20.1**
+- **JUnit Jupiter**: RELEASE → **6.0.2** (fixed anti-pattern)
+- **SLF4J API**: **2.0.17** (latest GA)
+- **Vavr**: **0.11.0** (latest stable)
 
 ### 🏗️ Improved Dependency Management
 
@@ -124,14 +124,14 @@ When using modules with provided dependencies, add these to your project:
 <dependency>
     <groupId>org.slf4j</groupId>
     <artifactId>slf4j-api</artifactId>
-    <version>2.0.16</version>
+    <version>2.0.17</version>
 </dependency>
 
 <!-- For command-either-bus only -->
 <dependency>
     <groupId>io.vavr</groupId>
     <artifactId>vavr</artifactId>
-    <version>0.10.6</version>
+    <version>0.11.0</version>
 </dependency>
 
 <!-- Logging implementation (choose one) -->
@@ -241,7 +241,7 @@ if (eligibleForOffer.isSatisfiedBy(user)) {
 
 ### Requirements
 
-- **JDK 24** or higher
+- **JDK 25** or higher
 - **Maven 3.9+**
 
 ### Building
@@ -267,7 +267,7 @@ mvn versions:display-plugin-updates
 
 | Shared Kernel | Min JDK | SLF4J API | Vavr | Notes |
 |---------------|---------|-----------|------|-------|
-| 1.0.x         | 24      | 2.0.0+    | 0.10.0+ | Current |
+| 1.0.x         | 25      | 2.0.0+    | 0.11.0+ | Current |
 
 ## 🤝 Contributing
 
