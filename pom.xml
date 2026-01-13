@@ -10,6 +10,28 @@
 
     <name>Shared Kernel</name>
     <description>Shared Kernel for DDD and more...</description>
+    <url>https://github.com/emedina/shared-kernel</url>
+
+    <developers>
+        <developer>
+            <id>emedina</id>
+            <name>Enrique Medina Montenegro</name>
+            <email>enrique@medinamontenegro.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/emedina/shared-kernel.git</connection>
+        <developerConnection>scm:git:ssh://github.com:emedina/shared-kernel.git</developerConnection>
+        <url>https://github.com/emedina/shared-kernel</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
     <modules>
         <module>domain</module>
@@ -44,6 +66,7 @@
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     </properties>
 
     <dependencies>
@@ -197,6 +220,20 @@
                             <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
