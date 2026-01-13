@@ -111,7 +111,7 @@ Technology-agnostic transaction boundaries:
 
 ```xml
 <dependency>
-    <groupId>com.emedina.sharedkernel</groupId>
+    <groupId>io.github.emedina</groupId>
     <artifactId>shared-kernel-domain</artifactId>
     <version>1.0.0</version>
 </dependency>
