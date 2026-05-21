@@ -1,10 +1,10 @@
-# Shared Kernel for Hexagonal Architecture
+# Architecture Kernel for Hexagonal Architecture
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Java Version](https://img.shields.io/badge/Java-25-blue)
 ![Test Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)
 
-A comprehensive shared kernel library implementing Domain-Driven Design (DDD) patterns and hexagonal architecture principles for Java applications.
+A comprehensive architecture kernel library implementing Domain-Driven Design (DDD) patterns and hexagonal architecture principles for Java applications.
 
 ## 📚 Further Learning
 
@@ -26,7 +26,7 @@ This implementation is part of a comprehensive exploration of Hexagonal Architec
 
 The book provides in-depth coverage of:
 
-- Shared kernel implementation strategies
+- Architecture kernel implementation strategies
 - Command and Query pattern variations
 - Domain modeling with value objects and entities
 - Specification pattern for business rules
@@ -112,7 +112,7 @@ Technology-agnostic transaction boundaries:
 ```xml
 <dependency>
     <groupId>io.github.emedina</groupId>
-    <artifactId>shared-kernel-domain</artifactId>
+    <artifactId>architecture-kernel-domain</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -267,7 +267,7 @@ mvn versions:display-plugin-updates
 
 ## 📋 Version Compatibility
 
-| Shared Kernel | Min JDK | SLF4J API | Vavr | Notes |
+| Architecture Kernel | Min JDK | SLF4J API | Vavr | Notes |
 |---------------|---------|-----------|------|-------|
 | 1.0.x         | 25      | 2.0.0+    | 0.11.0+ | Current |
 
@@ -284,4 +284,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🏷️ Tags
 
-`hexagonal-architecture` `domain-driven-design` `ddd` `cqrs` `java` `maven` `specifications` `command-pattern` `value-objects` `shared-kernel`
+`hexagonal-architecture` `domain-driven-design` `ddd` `cqrs` `java` `maven` `specifications` `command-pattern` `value-objects` `architecture-kernel`
